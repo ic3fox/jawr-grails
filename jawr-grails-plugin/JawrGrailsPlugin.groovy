@@ -9,7 +9,7 @@ import net.jawr.web.servlet.JawrGrailsServlet;
 import net.jawr.web.servlet.JawrRequestHandler;
 
 class JawrGrailsPlugin {
-    def groupId = "net.jawr.extensions.grails"
+    
     // the plugin version
     def version = "3.5"
     // the version or versions of Grails the plugin is designed for
