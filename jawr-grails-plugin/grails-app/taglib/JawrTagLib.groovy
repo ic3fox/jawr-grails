@@ -10,7 +10,7 @@ import net.jawr.web.resource.bundle.renderer.image.ImgHTMLRenderer;
 import net.jawr.web.resource.bundle.handler.ResourceBundlesHandler;
 import net.jawr.web.servlet.RendererRequestUtils;
 import net.jawr.web.taglib.ImageTagUtils;
-import net.jawr.web.JawrConstant;
+import net.jawr.web.JawrGrailsConstant;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 /**
