@@ -6,7 +6,7 @@
 	<groupId>org.grails.plugins</groupId>
 	<artifactId>jawr</artifactId>
 	<packaging>zip</packaging>
-	<version>3.5</version>
+	<version>3.5.1</version>
 
 	<name>jawr Grails plugin</name>
 	<description>jawr grails plugin</description>
@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>net.jawr</groupId>
 			<artifactId>jawr-core</artifactId>
-			<version>3.5</version>
+			<version>3.5.1</version>
 			<scope>compile</scope>
 
 		</dependency>
