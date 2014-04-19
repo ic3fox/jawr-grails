@@ -3,7 +3,7 @@ import org.codehaus.groovy.grails.plugins.GrailsPluginUtils as GPU
 import org.codehaus.groovy.grails.plugins.PluginManagerHolder
 import grails.util.*
 
-import net.jawr.web.JawrConstant;
+import net.jawr.web.JawrGrailsConstant;
 import net.jawr.web.resource.bundle.locale.ResourceBundleMessagesGenerator;
 import net.jawr.web.servlet.JawrGrailsServlet;
 import net.jawr.web.servlet.JawrRequestHandler;
@@ -11,7 +11,7 @@ import net.jawr.web.servlet.JawrRequestHandler;
 class JawrGrailsPlugin {
     
     // the plugin version
-    def version = "3.5"
+    def version = "3.5.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.3 > *"
     // resources that are excluded from plugin packaging
