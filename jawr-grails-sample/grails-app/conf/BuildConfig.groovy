@@ -21,7 +21,8 @@ grails.project.fork = [
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
-grails.project.dependency.resolver = "maven" // or "ivy" 
+grails.project.dependency.resolver = "maven" // or "ivy"
+grails.plugin.location.jawr = "../jawr-grails-plugin"
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -30,7 +31,7 @@ grails.project.dependency.resolution = {
     }
     log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
-    legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
+    legacyResolve true // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
@@ -55,10 +56,10 @@ grails.project.dependency.resolution = {
 
     plugins {
         // plugins for the build system only
-        build ":tomcat:7.0.47"
+        build ":tomcat:7.0.52.1"
 
         // plugins for the compile step
-        compile ":scaffolding:2.0.1"
+        compile ":scaffolding:2.1.0"
         //compile ':cache:1.1.1'
 
         // plugins needed at runtime but not for compilation
@@ -66,8 +67,7 @@ grails.project.dependency.resolution = {
         // runtime ":database-migration:1.3.8"
         // runtime ":jquery:1.10.2.2"
         // runtime ":resources:1.2.1"
-        
-        compile ":jawr:3.5.1"
+
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0.1"
         //runtime ":cached-resources:1.1"

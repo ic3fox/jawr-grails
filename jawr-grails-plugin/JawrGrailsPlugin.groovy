@@ -1,6 +1,5 @@
 import org.codehaus.groovy.grails.commons.*;
 import org.codehaus.groovy.grails.plugins.GrailsPluginUtils as GPU
-import org.codehaus.groovy.grails.plugins.PluginManagerHolder
 import grails.util.*
 
 import net.jawr.web.JawrGrailsConstant;
@@ -11,9 +10,9 @@ import net.jawr.web.servlet.JawrRequestHandler;
 class JawrGrailsPlugin {
     
     // the plugin version
-    def version = "3.5.1"
+    def version = "3.5.2"
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "2.3 > *"
+    def grailsVersion = "2.4 > *"
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/views/error.gsp"
@@ -56,7 +55,7 @@ class JawrGrailsPlugin {
     def watchedResources =  "file:./grails-app/conf/Config.groovy";
 	
 	def doWithWebDescriptor = { webXml ->
-		def conf =  ConfigurationHolder.config;
+		def conf =  Holders.config;
 		Properties jawrProps = filterJawrProps(conf);
 		
 		def servlets = webXml.servlet 
@@ -154,13 +153,13 @@ class JawrGrailsPlugin {
 	 * Initializes the Jawr requestHandler instances which will attend of javascript and CSS requests. 
 	 */
 	def doWithApplicationContext = { applicationContext ->
-		def conf =  ConfigurationHolder.config;
+		def conf =  Holders.config // ConfigurationHolder.config;
 		
 		if(conf.jawr) {    		
 			
 			// Set the plugin path
 			def pluginPaths = [:]
-			def pluginManager = PluginManagerHolder.getPluginManager()
+			def pluginManager = Holders.pluginManager
 			def pluginSettings = GPU.getPluginBuildSettings()
 			if(pluginManager!=null) {
 				for(plugin in pluginManager.userPlugins) {

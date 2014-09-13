@@ -19,17 +19,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
+import javax.servlet.descriptor.JspConfigDescriptor;
 
 import org.apache.commons.collections.iterators.IteratorEnumeration;
 import org.slf4j.Logger;
@@ -121,11 +114,16 @@ public class MockServletContext implements ServletContext {
 		return new IteratorEnumeration(attributes.keySet().iterator());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.ServletContext#getMajorVersion()
-	 */
+    @Override
+    public boolean setInitParameter(String name, String value) {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.servlet.ServletContext#getMajorVersion()
+     */
 	public int getMajorVersion() {
 		return 2;
 	}
@@ -148,11 +146,21 @@ public class MockServletContext implements ServletContext {
 		return 5;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.ServletContext#getNamedDispatcher(java.lang.String)
-	 */
+    @Override
+    public int getEffectiveMajorVersion() {
+        return 0;
+    }
+
+    @Override
+    public int getEffectiveMinorVersion() {
+        return 0;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.servlet.ServletContext#getNamedDispatcher(java.lang.String)
+     */
 	public RequestDispatcher getNamedDispatcher(String name) {
 		throw new RuntimeException("operation not supported");
 	}
@@ -281,11 +289,103 @@ public class MockServletContext implements ServletContext {
 		throw new RuntimeException("operation not supported");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.ServletContext#getServletNames()
-	 */
+    public ServletRegistration.Dynamic addServlet(String servletName, String className) {
+        return null;
+    }
+
+    public ServletRegistration.Dynamic addServlet(String servletName, Servlet servlet) {
+        return null;
+    }
+
+    public ServletRegistration.Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass) {
+        return null;
+    }
+
+    public <T extends Servlet> T createServlet(Class<T> clazz) throws ServletException {
+        return null;
+    }
+
+    public ServletRegistration getServletRegistration(String servletName) {
+        return null;
+    }
+
+    public Map<String, ? extends ServletRegistration> getServletRegistrations() {
+        return null;
+    }
+
+    public FilterRegistration.Dynamic addFilter(String filterName, String className) {
+        return null;
+    }
+
+    public FilterRegistration.Dynamic addFilter(String filterName, Filter filter) {
+        return null;
+    }
+
+    public FilterRegistration.Dynamic addFilter(String filterName, Class<? extends Filter> filterClass) {
+        return null;
+    }
+
+    public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException {
+        return null;
+    }
+
+    public FilterRegistration getFilterRegistration(String filterName) {
+        return null;
+    }
+
+    public Map<String, ? extends FilterRegistration> getFilterRegistrations() {
+        return null;
+    }
+
+    public SessionCookieConfig getSessionCookieConfig() {
+        return null;
+    }
+
+    public void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes) {
+
+    }
+
+    public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
+        return null;
+    }
+
+    public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
+        return null;
+    }
+
+    public void addListener(String className) {
+
+    }
+
+    public <T extends EventListener> void addListener(T t) {
+
+    }
+
+    public void addListener(Class<? extends EventListener> listenerClass) {
+
+    }
+
+    public <T extends EventListener> T createListener(Class<T> clazz) throws ServletException {
+        return null;
+    }
+
+    public JspConfigDescriptor getJspConfigDescriptor() {
+        return null;
+    }
+
+    public ClassLoader getClassLoader() {
+        return null;
+    }
+
+    public void declareRoles(String... roleNames) {
+
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.servlet.ServletContext#getServletNames()
+     */
 	public Enumeration<String> getServletNames() {
 		throw new RuntimeException("operation not supported");
 	}
@@ -295,7 +395,7 @@ public class MockServletContext implements ServletContext {
 	 * 
 	 * @see javax.servlet.ServletContext#getServlets()
 	 */
-	public Enumeration<?> getServlets() {
+	public Enumeration<Servlet> getServlets() {
 		throw new RuntimeException("operation not supported");
 	}
 
