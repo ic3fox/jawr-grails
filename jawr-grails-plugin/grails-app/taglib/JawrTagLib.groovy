@@ -2,7 +2,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException;
 
-import net.jawr.web.resource.ImageResourcesHandler;
+import net.jawr.web.resource.BinaryResourcesHandler;
 import net.jawr.web.resource.bundle.renderer.BundleRendererContext;
 import net.jawr.web.resource.bundle.renderer.JavascriptHTMLBundleLinkRenderer;
 import net.jawr.web.resource.bundle.renderer.CSSHTMLBundleLinkRenderer;
@@ -111,13 +111,13 @@ class JawrTagLib {
 	 */
 	def getImgSrcToRender = { src, base64 ->
 		
-		ImageResourcesHandler imgRsHandler = (ImageResourcesHandler) servletContext.getAttribute(JawrConstant.IMG_CONTEXT_ATTRIBUTE);
-		if (imgRsHandler == null){
+		BinaryResourcesHandler binaryRsHandler = (BinaryResourcesHandler) servletContext.getAttribute(JawrConstant.BINARY_CONTEXT_ATTRIBUTE);
+		if (binaryRsHandler == null){
 			throw new GrailsTagException(
 					"You are using a Jawr image tag while the Jawr Image servlet has not been initialized. Initialization of Jawr Image servlet either failed or never occurred.");
 		}
 		
-		return ImageTagUtils.getImageUrl(src, base64, imgRsHandler, request, response);
+		return ImageTagUtils.getImageUrl(src, base64, binaryRsHandler, request, response);
 	}
 	
 }

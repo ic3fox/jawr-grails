@@ -1,5 +1,5 @@
 /**
- * Copyright 2010-20213 Ibrahim Chaehoi
+ * Copyright 2010-2014 Ibrahim Chaehoi
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License at
@@ -27,15 +27,19 @@ import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 
+import net.jawr.web.JawrConstant;
 import net.jawr.web.JawrGrailsConstant;
 import net.jawr.web.config.JawrConfig;
 import net.jawr.web.exception.BundlingProcessException;
 import net.jawr.web.exception.InvalidPathException;
 import net.jawr.web.resource.bundle.factory.util.RegexUtil;
+import net.jawr.web.resource.bundle.locale.GrailsLocaleUtils;
 import net.jawr.web.resource.handler.reader.BaseServletContextResourceReader;
 import net.jawr.web.util.FileUtils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * This class defines the resource reader for Grails application which is based on the servletContextReader.
@@ -46,16 +50,36 @@ public class GrailsServletContextResourceReader extends
 	BaseServletContextResourceReader {
 
 	/** The logger */
-	private static final Logger LOGGER = Logger.getLogger(GrailsServletContextResourceReader.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GrailsServletContextResourceReader.class);
+	
+	/** The grails-app directory name */
+	private static final String GRAILS_APP_DIR = "grails-app";
 	
 	/** The pattern of the plugin resource path */
-	private static Pattern PLUGIN_RESOURCE_PATTERN = Pattern.compile("^(/plugins/([a-zA-Z0-9_\\-]*))");
+	private static Pattern PLUGIN_RESOURCE_PATTERN = Pattern.compile("^(/plugins/([a-zA-Z0-9_\\-\\.]*))");
 	
+	/** The plugin map attribute name */
+	private String pluginMapAttributeName;
+
 	/** The plugin path map */
 	private Map<String, String> pluginPathMap;
 	
 	/** The flag indicating if the grails war is deployed */
 	private boolean warDeployed;
+	
+	/**
+	 * Constructor
+	 */
+	public GrailsServletContextResourceReader() {
+		this(JawrGrailsConstant.JAWR_GRAILS_PLUGIN_PATHS);
+	}
+	
+	/**
+	 * Constructor
+	 */
+	public GrailsServletContextResourceReader(String pluginMapAttributeName) {
+		this.pluginMapAttributeName = pluginMapAttributeName;
+	}
 	
 	/* (non-Javadoc)
 	 * @see net.jawr.web.resource.handler.reader.BaseServletContextResourceReader#init(javax.servlet.ServletContext, net.jawr.web.config.JawrConfig)
@@ -64,7 +88,7 @@ public class GrailsServletContextResourceReader extends
 	public void init(ServletContext context,
 			JawrConfig config) {
 		super.init(context, config);
-		pluginPathMap = (Map<String, String>) context.getAttribute(JawrGrailsConstant.JAWR_GRAILS_PLUGIN_PATHS);
+		pluginPathMap = (Map<String, String>) context.getAttribute(pluginMapAttributeName);
 		if(pluginPathMap == null){
 			throw new BundlingProcessException("No grails plugin paths map defined in the servlet context");
 		}
@@ -88,12 +112,8 @@ public class GrailsServletContextResourceReader extends
 		StringBuffer sb = new StringBuffer();
 		
 		if(matcher.find()){
-			if(LOGGER.isDebugEnabled()){
-				LOGGER.debug("Plugin path found : "+path);
-			}
 			
 			String pluginName = matcher.group(2);
-			LOGGER.debug("pluginName : "+pluginName);
 			String pluginPath = (String) pluginPathMap.get(pluginName);
 			if(pluginPath != null){
 				matcher.appendReplacement(sb, RegexUtil.adaptReplacementToMatcher(pluginPath));
@@ -177,6 +197,25 @@ public class GrailsServletContextResourceReader extends
 		return is;
 	}
 
+	/**
+	 * Checks if the resource should be accessible
+	 * @param resourceName the resource name
+	 * @return true if the resource should be accessible
+	 */
+	protected boolean isAccessPermitted(String resourceName){
+	
+		boolean accessible = true;
+		if(resourceName.startsWith(JawrConstant.WEB_INF_DIR_PREFIX)){
+			if(resourceName.startsWith(JawrConstant.WEB_INF_DIR_PREFIX+GRAILS_APP_DIR) && resourceName.endsWith(GrailsLocaleUtils.MSG_RESOURCE_BUNDLE_SUFFIX)){
+				accessible = true;
+			}else{
+				accessible = false;
+			}
+		}
+		
+		return accessible; 
+	}
+	
 	/* (non-Javadoc)
 	 * @see net.jawr.web.resource.handler.reader.ServletContextResourceReader#getResourceAsStream(java.lang.String)
 	 */
@@ -232,6 +271,17 @@ public class GrailsServletContextResourceReader extends
 		return isDirectory;
 	}
 
+	/**
+	 * Checks if the path given in parameter are file system path or not
+	 * @param path the original path
+	 * @param realPath the real path
+	 * @return true if the path given in parameter are file system path or not
+	 */
+	public boolean isFileSystemPath(String path) {
+		
+		return isFileSystemPath(getRealResourcePath(path), path);
+	}
+	
 	/**
 	 * Checks if the path given in parameter are file system path or not
 	 * @param path the original path

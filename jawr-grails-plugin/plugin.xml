@@ -1,4 +1,4 @@
-<plugin name='jawr' version='3.5.2' grailsVersion='2.4 &gt; *'>
+<plugin name='jawr' version='3.6' grailsVersion='2.4 &gt; *'>
   <authorEmail>icefox@dev.java.net</authorEmail>
   <title>adds Jawr (https://jawr.dev.java.net) functionality to Grails applications.</title>
   <description>    			Jawr is a tunable packaging solution for Javascript and CSS which allows for rapid development of resources 
@@ -10,8 +10,8 @@
   <documentation>https://jawr.dev.java.net</documentation>
   <type>JawrGrailsPlugin</type>
   <resources>
+    <resource>JawrBinaryController</resource>
     <resource>JawrCSSController</resource>
-    <resource>JawrImgController</resource>
     <resource>JawrJavascriptController</resource>
     <resource>JawrTagLib</resource>
   </resources>

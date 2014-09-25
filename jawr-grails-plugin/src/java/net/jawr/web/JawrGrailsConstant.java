@@ -23,6 +23,9 @@ public class JawrGrailsConstant {
 	/** The attribute name of the Grails plugins paths */
 	public static final String JAWR_GRAILS_PLUGIN_PATHS = "net.jawr.grails.plugins.paths";
 
+	/** The attribute name of the Grails plugins message paths */
+	public static final String JAWR_GRAILS_PLUGIN_MSG_PATHS = "net.jawr.grails.plugins.message.paths";
+
 	/**
 	 * The attribute name of the flag determining if we are in deployed war mode
 	 * or not
@@ -36,7 +39,7 @@ public class JawrGrailsConstant {
 	public static final String JAWR_GRAILS_CSS_REQUEST_HANDLER = "net.jawr.grails.css.request.handler";
 
 	/** The attribute name of the IMG request handler */
-	public static final String JAWR_GRAILS_IMG_REQUEST_HANDLER = "net.jawr.grails.img.request.handler";
+	public static final String JAWR_GRAILS_BINARY_REQUEST_HANDLER = "net.jawr.grails.binary.request.handler";
 
 	/** The attribute name of the JS config */
 	public static final String JAWR_GRAILS_JS_CONFIG = "net.jawr.grails.js.config";
@@ -45,7 +48,7 @@ public class JawrGrailsConstant {
 	public static final String JAWR_GRAILS_CSS_CONFIG = "net.jawr.grails.css.config";
 
 	/** The attribute name of the JS config */
-	public static final String JAWR_GRAILS_IMG_CONFIG = "net.jawr.grails.img.config";
+	public static final String JAWR_GRAILS_BINARY_CONFIG = "net.jawr.grails.binary.config";
 
 	/** The attribute name of the config hashcode */
 	public static final String JAWR_GRAILS_CONFIG_HASH = "net.jawr.grails.config.hash";

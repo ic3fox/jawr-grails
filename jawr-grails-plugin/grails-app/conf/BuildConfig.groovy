@@ -36,7 +36,9 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        compile 'net.jawr:jawr-core:3.5.1'
+        test 'org.mockito:mockito-all:1.9.5'
+		
+		compile 'net.jawr:jawr-core:3.6-SNAPSHOT'
     }
 
     plugins {

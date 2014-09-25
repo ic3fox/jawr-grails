@@ -1,3 +1,4 @@
+import net.jawr.web.JawrGrailsConstant;
 import net.jawr.web.servlet.JawrRequestHandler;
 
 /**
@@ -12,7 +13,7 @@ class JawrCSSController {
 		def doGet = {			
 			
 			if(null == requestHandler)
-				requestHandler = servletContext.getAttribute("CSSJawrRequestHandler");
+				requestHandler = servletContext.getAttribute(JawrGrailsConstant.JAWR_GRAILS_CSS_REQUEST_HANDLER);
 
 			// In grails the request is always internally forwarded. This takes account for that. 
 			String path = request['javax.servlet.forward.servlet_path'];			

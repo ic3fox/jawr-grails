@@ -13,6 +13,8 @@
  */
 package test.net.jawr.web.resource.bundle.handler.grails;
 
+import static org.mockito.Mockito.when;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -24,30 +26,41 @@ import net.jawr.web.JawrGrailsConstant;
 import net.jawr.web.config.JawrConfig;
 import net.jawr.web.resource.handler.reader.grails.GrailsServletContextResourceReader;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
 /**
  * @author ibrahim Chaehoi
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 public class GrailsServletContextResourceReaderTestCase extends TestCase {
 
+	@Mock
 	private ServletContext servletContext;
+	
 	private GrailsServletContextResourceReader rsReader;
 	private Map<String, String> pluginPaths;
 	
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
 	 */
+	@Before
 	public void setUp(){
-		servletContext = new MockServletContext();
+		
 		pluginPaths = new HashMap<String, String>();
 		pluginPaths.put("test","C:/plugins/test/webapp");
-		servletContext.setAttribute(JawrGrailsConstant.JAWR_GRAILS_PLUGIN_PATHS, pluginPaths);
-		servletContext.setAttribute(JawrGrailsConstant.GRAILS_WAR_DEPLOYED, Boolean.FALSE);
+		when(servletContext.getAttribute(JawrGrailsConstant.JAWR_GRAILS_PLUGIN_PATHS)).thenReturn(pluginPaths);
+		when(servletContext.getAttribute(JawrGrailsConstant.GRAILS_WAR_DEPLOYED)).thenReturn(Boolean.FALSE);
 	}
 	
+	@Test
 	public void testGrailsPluginPathResolverNotFound(){
 		JawrConfig config = new JawrConfig("js",new Properties());
-		servletContext.removeAttribute(JawrGrailsConstant.JAWR_GRAILS_PLUGIN_PATHS);
+		when(servletContext.getAttribute(JawrGrailsConstant.JAWR_GRAILS_PLUGIN_PATHS)).thenReturn(null);
 		try{
 			rsReader = new GrailsServletContextResourceReader();
 			rsReader.init(servletContext, config);
@@ -57,6 +70,7 @@ public class GrailsServletContextResourceReaderTestCase extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testGetRealResourcePath(){
 		JawrConfig config = new JawrConfig("js",new Properties());
 		rsReader = new GrailsServletContextResourceReader();
@@ -66,6 +80,7 @@ public class GrailsServletContextResourceReaderTestCase extends TestCase {
 		assertEquals("C:/plugins/test/webapp/css/myStyle.css", realPath);
 	}
 	
+	@Test
 	public void testGetRealResourcePathWithGeneratorPrefix(){
 		JawrConfig config = new JawrConfig("js",new Properties());
 		rsReader = new GrailsServletContextResourceReader();
