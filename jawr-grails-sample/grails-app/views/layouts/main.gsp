@@ -9,21 +9,18 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><g:layoutTitle default="Grails"/></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
-		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
-		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
-		<jawr:style src="/css/commonLayout.css" media="all" />
-		
+		<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
+		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
+  		<asset:stylesheet src="application.css"/>
+		<asset:javascript src="application.js"/>
 		<g:layoutHead/>
-		<g:javascript library="application"/>		
-		<r:layoutResources />
 	</head>
-	<body class="yui-skin-sam">
+	<body>
 		<div id="grailsLogo" role="banner"><a href="https://jawr.java.net/"><jawr:img src="/images/logo-small.png" alt="Jawr" border="0" width="70%" height="70%" /></a>&nbsp;&nbsp;&nbsp;<a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<div id="grailsLogo" class="logo"><a href="https://jawr.java.net/"><jawr:img src="/images/logo-small.png" alt="Jawr" border="0" width="70%" height="70%"/></a>&nbsp;&nbsp;&nbsp;<a href="http://grails.org"><jawr:img src="/images/grails_logo.png" alt="Grails" border="0" /></a></div>
-		<r:layoutResources />
 	</body>
 </html>

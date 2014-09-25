@@ -5,13 +5,13 @@
 
 	<bean id="grailsApplication" class="org.codehaus.groovy.grails.commons.GrailsApplicationFactoryBean">
 		<description>Grails application factory bean</description>
-        <property name="grailsDescriptor" value="/WEB-INF/grails.xml" />
-    </bean>
+		<property name="grailsDescriptor" value="/WEB-INF/grails.xml" />
+	</bean>
 
 	<bean id="pluginManager" class="org.codehaus.groovy.grails.plugins.GrailsPluginManagerFactoryBean">
 		<description>A bean that manages Grails plugins</description>
-        <property name="grailsDescriptor" value="/WEB-INF/grails.xml" />
-        <property name="application" ref="grailsApplication" />
+		<property name="grailsDescriptor" value="/WEB-INF/grails.xml" />
+		<property name="application" ref="grailsApplication" />
 	</bean>
 
 	<bean id="grailsConfigurator" class="org.codehaus.groovy.grails.commons.spring.GrailsRuntimeConfigurator">
